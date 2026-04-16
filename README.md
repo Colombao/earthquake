@@ -4,7 +4,7 @@ Um dashboard interativo e abrangente para análise em tempo real de dados de ter
 
 ---
 
-## 📋 Índice
+##  Índice
 
 - [Visão Geral](#visão-geral)
 - [Características](#características)
@@ -19,7 +19,7 @@ Um dashboard interativo e abrangente para análise em tempo real de dados de ter
 
 ---
 
-## 🌍 Visão Geral
+##  Visão Geral
 
 Este projeto implementa uma solução completa de análise de atividade sísmica global, integrando:
 
@@ -32,9 +32,9 @@ Este projeto implementa uma solução completa de análise de atividade sísmica
 
 ---
 
-## ✨ Características
+##  Características
 
-### 🗺️ Dashboard Interativo (app.py)
+###  Dashboard Interativo (app.py)
 
 - **Mapa Interativo**: Visualização geográfica com código de cores por magnitude
   - Legenda de cores: Micro (azul) → Muito grande (vermelho escuro)
@@ -49,7 +49,7 @@ Este projeto implementa uma solução completa de análise de atividade sísmica
   - Range de profundidade
   - Seleção por país/região
 
-### 📊 Dashboard de Análise (analysis_report.py)
+###  Dashboard de Análise (analysis_report.py)
 
 - **Resumo Executivo**: Métricas principais e fluxo de dados
 - **Etapa 1: Auditoria**
@@ -73,7 +73,7 @@ Este projeto implementa uma solução completa de análise de atividade sísmica
 
 ---
 
-## 🛠️ Tecnologias
+##  Tecnologias
 
 ```
 Python 3.13
@@ -92,7 +92,7 @@ API USGS Earthquake Hazards
 
 ---
 
-## 📦 Instalação
+##  Instalação
 
 ### Pré-requisitos
 
@@ -121,7 +121,7 @@ pip install -r requirements.txt
 
 ---
 
-## 🚀 Como Usar
+##  Como Usar
 
 ### Executar o Dashboard Principal
 
@@ -149,7 +149,7 @@ O app abrirá em: `http://localhost:8505`
 
 ---
 
-## 📁 Estrutura do Projeto
+##  Estrutura do Projeto
 
 ```
 earthquake/
@@ -194,32 +194,32 @@ earthquake/
 
 ---
 
-## 📊 Dashboards
+##  Dashboards
 
 ### Dashboard Principal (app.py) - 6 Abas
 
 | Aba                 | Funcionalidade                              | Interatividade                 |
 | ------------------- | ------------------------------------------- | ------------------------------ |
-| 🗺️ Mapa             | Visualização geográfica com código de cores | Clique para popup com detalhes |
-| 📈 Série Temporal   | Evolução temporal de quantidade e magnitude | Zoom, pan, hover               |
-| 📊 Estatísticas     | Histogramas e boxplots                      | Sortear, filtrar               |
-| 🌍 Distribuição     | Top 15 países + scatter plot espacial       | Hover, zoom                    |
-| 📋 Tabela           | Dados completos com sorting                 | Download CSV                   |
-| 📁 Análise Completa | Link para dashboard de análise              | Redirecionamento               |
+|  Mapa             | Visualização geográfica com código de cores | Clique para popup com detalhes |
+|  Série Temporal   | Evolução temporal de quantidade e magnitude | Zoom, pan, hover               |
+|  Estatísticas     | Histogramas e boxplots                      | Sortear, filtrar               |
+|  Distribuição     | Top 15 países + scatter plot espacial       | Hover, zoom                    |
+|  Tabela           | Dados completos com sorting                 | Download CSV                   |
+|  Análise Completa | Link para dashboard de análise              | Redirecionamento               |
 
 ### Dashboard de Análise (analysis_report.py) - 5 Abas
 
 | Aba            | Sub-análises                                                    | Quantidade     |
 | -------------- | --------------------------------------------------------------- | -------------- |
-| 📌 Resumo      | Métricas principais + fluxo de dados                            | 5 seções       |
-| 🔍 Auditoria   | Missing, duplicidades, gaps, outliers, inconsistências          | 5 sub-abas     |
-| 🛠️ Tratamento  | ETL summary, variáveis derivadas, normalização                  | 3 sub-abas     |
-| 📉 EDA         | Stats, série, sazonalidade, correlação, anomalias, decomposição | 6 sub-abas     |
-| ⚖️ Comparativo | Antes/depois do tratamento                                      | Impacto visual |
+|  Resumo      | Métricas principais + fluxo de dados                            | 5 seções       |
+|  Auditoria   | Missing, duplicidades, gaps, outliers, inconsistências          | 5 sub-abas     |
+|  Tratamento  | ETL summary, variáveis derivadas, normalização                  | 3 sub-abas     |
+|  EDA         | Stats, série, sazonalidade, correlação, anomalias, decomposição | 6 sub-abas     |
+|  Comparativo | Antes/depois do tratamento                                      | Impacto visual |
 
 ---
 
-## 🔄 Fluxo de Dados
+##  Fluxo de Dados
 
 ```
 ┌─────────────────────────────────────────┐
@@ -266,7 +266,7 @@ earthquake/
 
 ---
 
-## 🔬 Etapas de Análise
+##  Etapas de Análise
 
 ### Etapa 1: Auditoria
 
@@ -311,7 +311,7 @@ Descoberta de padrões e insights:
 
 ---
 
-## 📈 Dados Gerados
+##  Dados Gerados
 
 ### Exemplo de Resumo Final
 
@@ -328,7 +328,7 @@ Máximo Diário:                  366
 
 ---
 
-## 📥 Requisitos do Sistema
+##  Requisitos do Sistema
 
 - **Python**: 3.13+
 - **RAM**: Mínimo 2GB (recomendado 4GB+)
@@ -338,7 +338,7 @@ Máximo Diário:                  366
 
 ---
 
-## 🔧 Configurações
+##  Configurações
 
 ### Parâmetros de API USGS (em app.py)
 
@@ -361,7 +361,7 @@ def carregar_dados():
 
 ---
 
-## 📝 Exemplos de Uso
+##  Exemplos de Uso
 
 ### Filtrar por Magnitude
 
@@ -395,7 +395,7 @@ def carregar_dados():
 
 ---
 
-## 🐛 Troubleshooting
+##  Troubleshooting
 
 ### Problema: "streamlit não é reconhecido"
 
@@ -427,7 +427,7 @@ python3.13.exe -m streamlit run app.py --server.port 8506
 
 ---
 
-## 📚 Referências
+##  Referências
 
 - [USGS Earthquake Data API](https://earthquake.usgs.gov/fdsnws/event/1/)
 - [Streamlit Documentation](https://docs.streamlit.io/)
@@ -437,19 +437,19 @@ python3.13.exe -m streamlit run app.py --server.port 8506
 
 ---
 
-## 📄 Licença
+##  Licença
 
 Este projeto está disponível para uso educacional e comercial.
 
 ---
 
-## 👨‍💻 Autor
+##  Autor
 
 Desenvolvido como projeto de análise de dados com Streamlit e Python.
 
 ---
 
-## 🤝 Contribuições
+##  Contribuições
 
 Para contribuições, sugestões ou reportar bugs:
 
@@ -460,7 +460,7 @@ Para contribuições, sugestões ou reportar bugs:
 
 ---
 
-## 📅 Histórico de Atualizações
+##  Histórico de Atualizações
 
 | Data       | Versão | Alteração                                 |
 | ---------- | ------ | ----------------------------------------- |
