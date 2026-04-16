@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard de Análise de Atividade Sísmica</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: #0a0e27;
+        color: #ffffff;
+        overflow: hidden;
+      }
+
+      .slide-container {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+
+      .slide {
+        width: 100%;
+        height: 100%;
+        display: none;
+        animation: fadeIn 0.5s ease-in;
+        padding: 60px;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .slide.active {
+        display: flex !important;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* SLIDE 1: Intro */
+      .slide-intro {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        text-align: center;
+      }
+
+      .slide-intro h1 {
+        font-size: 72px;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .slide-intro .subtitle {
+        font-size: 36px;
+        margin-bottom: 40px;
+        opacity: 0.95;
+      }
+
+      /* SLIDE 2: Problema */
+      .slide-problem {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      }
+
+      .slide-problem h2 {
+        font-size: 56px;
+        margin-bottom: 50px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      .problem-box {
+        background: rgba(0, 0, 0, 0.2);
+        padding: 40px;
+        border-radius: 15px;
+        font-size: 28px;
+        line-height: 1.8;
+      }
+
+      /* SLIDE 3: Solução */
+      .slide-solution {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        text-align: center;
+      }
+
+      .slide-solution h2 {
+        font-size: 56px;
+        margin-bottom: 50px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .solution-box {
+        background: rgba(0, 0, 0, 0.15);
+        padding: 40px;
+        border-radius: 15px;
+        font-size: 32px;
+        line-height: 2;
+        font-weight: 500;
+      }
+
+      /* SLIDE 4: Features */
+      .slide-features {
+        background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+      }
+
+      .slide-features h2 {
+        font-size: 56px;
+        margin-bottom: 50px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        font-size: 22px;
+      }
+
+      .feature-card {
+        background: rgba(0, 0, 0, 0.15);
+        padding: 30px;
+        border-radius: 10px;
+        border-left: 5px solid rgba(255, 255, 255, 0.5);
+      }
+
+      .feature-card strong {
+        display: block;
+        font-size: 26px;
+        margin-bottom: 15px;
+      }
+
+      /* SLIDE 5: Dashboard */
+      .slide-dashboard {
+        background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        text-align: center;
+      }
+
+      .slide-dashboard h2 {
+        font-size: 56px;
+        margin-bottom: 40px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .dashboard-feature {
+        background: rgba(0, 0, 0, 0.2);
+        padding: 25px;
+        margin: 15px;
+        border-radius: 10px;
+        font-size: 24px;
+        display: inline-block;
+        min-width: 300px;
+      }
+
+      /* SLIDE 6: Análise */
+      .slide-analysis {
+        background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+      }
+
+      .slide-analysis h2 {
+        font-size: 56px;
+        margin-bottom: 50px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .analysis-stages {
+        display: flex;
+        justify-content: space-around;
+        gap: 20px;
+      }
+
+      .stage {
+        background: rgba(0, 0, 0, 0.15);
+        padding: 30px;
+        border-radius: 10px;
+        flex: 1;
+        font-size: 20px;
+        text-align: center;
+      }
+
+      .stage-number {
+        font-size: 48px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+
+      .stage-title {
+        font-size: 26px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+
+      /* SLIDE 7: Tech Stack */
+      .slide-tech {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        text-align: center;
+      }
+
+      .slide-tech h2 {
+        font-size: 56px;
+        margin-bottom: 50px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .tech-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+        font-size: 22px;
+      }
+
+      .tech-item {
+        background: rgba(0, 0, 0, 0.3);
+        padding: 25px;
+        border-radius: 10px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .tech-item strong {
+        display: block;
+        font-size: 24px;
+        margin-bottom: 12px;
+      }
+
+      /* SLIDE 8: Benefícios */
+      .slide-benefits {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      }
+
+      .slide-benefits h2 {
+        font-size: 56px;
+        margin-bottom: 50px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      .benefits-list {
+        font-size: 28px;
+        line-height: 2.5;
+      }
+
+      .benefit-item {
+        background: rgba(0, 0, 0, 0.2);
+        padding: 20px 30px;
+        margin: 15px 0;
+        border-radius: 10px;
+        border-left: 5px solid rgba(255, 255, 255, 0.6);
+      }
+
+      /* SLIDE 9: Impacto */
+      .slide-impact {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        text-align: center;
+      }
+
+      .slide-impact h2 {
+        font-size: 56px;
+        margin-bottom: 50px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .impact-box {
+        background: rgba(0, 0, 0, 0.15);
+        padding: 50px;
+        border-radius: 15px;
+        font-size: 26px;
+        line-height: 2;
+      }
+
+      /* SLIDE 10: CTA */
+      .slide-cta {
+        background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        text-align: center;
+      }
+
+      .slide-cta h2 {
+        font-size: 68px;
+        margin-bottom: 50px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .cta-content {
+        font-size: 36px;
+        margin-bottom: 50px;
+        opacity: 0.95;
+      }
+
+      .cta-button {
+        background: rgba(0, 0, 0, 0.2);
+        padding: 30px 60px;
+        border-radius: 15px;
+        font-size: 32px;
+        font-weight: bold;
+        display: inline-block;
+        margin: 10px;
+        cursor: pointer;
+      }
+
+      /* Navigation */
+      .nav-buttons {
+        position: fixed;
+        bottom: 40px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        z-index: 1000;
+      }
+
+      button {
+        background: rgba(255, 255, 255, 0.3);
+        color: white;
+        border: 2px solid white;
+        padding: 12px 30px;
+        font-size: 16px;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-weight: bold;
+      }
+
+      button:hover {
+        background: rgba(255, 255, 255, 0.5);
+        transform: scale(1.05);
+      }
+
+      .slide-counter {
+        position: fixed;
+        top: 30px;
+        right: 40px;
+        background: rgba(0, 0, 0, 0.4);
+        padding: 15px 25px;
+        border-radius: 25px;
+        font-size: 18px;
+        font-weight: bold;
+      }
+
+      .slide-counter span {
+        color: #00ff88;
+      }
+
+      /* Responsivo */
+      @media (max-width: 1024px) {
+        .slide {
+          padding: 40px;
+        }
+
+        .slide-intro h1 {
+          font-size: 52px;
+        }
+
+        .features-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .tech-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .analysis-stages {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- SLIDE 1: Introdução -->
+    <div class="slide slide-intro active">
+      <h1>Dashboard de Análise de Atividade Sísmica</h1>
+      <p class="subtitle">Entendendo Terremotos com Dados em Tempo Real</p>
+    </div>
+
+    <!-- SLIDE 2: Problema -->
+    <div class="slide slide-problem">
+      <h2>O Problema</h2>
+      <div class="problem-box">
+        <p>
+          Dados sobre atividade sísmica estão dispersos e difíceis de acessar
+        </p>
+        <p style="margin-top: 20px">
+          Faltam ferramentas acessíveis para visualizar e explorar padrões
+        </p>
+        <p style="margin-top: 20px">
+          Decisões importantes requerem análises repetitivas e lentas
+        </p>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: Solução -->
+    <div class="slide slide-solution">
+      <h2>Nossa Solução</h2>
+      <div class="solution-box">
+        Um dashboard inteligente que transforma dados brutos em insights
+        visuais!
+      </div>
+    </div>
+
+    <!-- SLIDE 4: Features Principais -->
+    <div class="slide slide-features">
+      <h2>Características Principais</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <strong>Mapa Interativo</strong>
+          Geolocalização de terremotos com código de cores por magnitude
+        </div>
+        <div class="feature-card">
+          <strong>Série Temporal</strong>
+          Evolução de eventos e magnitude ao longo do tempo
+        </div>
+        <div class="feature-card">
+          <strong>Filtros Avançados</strong>
+          Magnitude, profundidade, país e período customizável
+        </div>
+        <div class="feature-card">
+          <strong>Estatísticas</strong>
+          Histogramas, boxplots e distribuição geográfica
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: Dashboard Completo -->
+    <div class="slide slide-dashboard">
+      <h2>O Dashboard Completo</h2>
+      <div class="dashboard-feature">Mapa com filtros interativos</div>
+      <div class="dashboard-feature">Gráficos e estatísticas</div>
+      <div class="dashboard-feature">Busca avançada</div>
+      <div class="dashboard-feature">Download de dados em CSV</div>
+    </div>
+
+    <!-- SLIDE 6: Análise em 3 Etapas -->
+    <div class="slide slide-analysis">
+      <h2>Análise em 3 Etapas</h2>
+      <div class="analysis-stages">
+        <div class="stage">
+          <div class="stage-number">1</div>
+          <div class="stage-title">Auditoria</div>
+          <p>
+            Missing values<br />Duplicidades<br />Outliers<br />Gaps temporais
+          </p>
+        </div>
+        <div class="stage">
+          <div class="stage-number">2</div>
+          <div class="stage-title">Tratamento</div>
+          <p>
+            Normalização<br />Limpeza<br />Variáveis derivadas<br />Sincronização
+          </p>
+        </div>
+        <div class="stage">
+          <div class="stage-number">3</div>
+          <div class="stage-title">EDA</div>
+          <p>Estatísticas<br />Correlações<br />Sazonalidade<br />Anomalias</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 7: Stack Tecnológico -->
+    <div class="slide slide-tech">
+      <h2>Stack Tecnológico</h2>
+      <div class="tech-grid">
+        <div class="tech-item">
+          <strong>Python 3.13</strong>
+          Linguagem principal
+        </div>
+        <div class="tech-item">
+          <strong>Streamlit</strong>
+          Interface web interativa
+        </div>
+        <div class="tech-item">
+          <strong>Pandas</strong>
+          Manipulação de dados
+        </div>
+        <div class="tech-item">
+          <strong>Plotly</strong>
+          Gráficos interativos
+        </div>
+        <div class="tech-item">
+          <strong>Folium</strong>
+          Mapas geográficos
+        </div>
+        <div class="tech-item">
+          <strong>API USGS</strong>
+          Dados em tempo real
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 8: Benefícios -->
+    <div class="slide slide-benefits">
+      <h2>Benefícios</h2>
+      <div class="benefits-list">
+        <div class="benefit-item">
+          Compreensão visual de padrões sísmicos globais
+        </div>
+        <div class="benefit-item">
+          Tomada de decisão baseada em dados precisos
+        </div>
+        <div class="benefit-item">Acesso público a análises profissionais</div>
+        <div class="benefit-item">
+          Metodologia rigorosa de qualidade de dados
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 9: Impacto -->
+    <div class="slide slide-impact">
+      <h2>Impacto</h2>
+      <div class="impact-box">
+        <p>Pesquisadores</p>
+        <p>Jornalistas</p>
+        <p>Autoridades de Proteção Civil</p>
+        <p>Público em Geral</p>
+        <p style="margin-top: 30px; font-size: 22px; opacity: 0.9">
+          Todos podem entender melhor a atividade sísmica do planeta!
+        </p>
+      </div>
+    </div>
+
+    <!-- SLIDE 10: Call to Action -->
+    <div class="slide slide-cta">
+      <h2>Vamos Começar!</h2>
+      <div class="cta-content">
+        Descubra os padrões sísmicos<br />que moldam nosso planeta
+      </div>
+      <div class="cta-button">Acesse o Dashboard</div>
+    </div>
+
+    <!-- Contador de slides -->
+    <div class="slide-counter">
+      <span id="current-slide">1</span> / <span id="total-slides">10</span>
+    </div>
+
+    <!-- Botões de navegação -->
+    <div class="nav-buttons">
+      <button onclick="previousSlide()">← Anterior</button>
+      <button onclick="nextSlide()">Próximo →</button>
+      <button onclick="toggleFullscreen()">🖥️ Tela Cheia (F)</button>
+    </div>
+
+    <script>
+      let currentSlide = 0;
+      const slides = document.querySelectorAll(".slide");
+      const totalSlides = slides.length;
+
+      document.getElementById("total-slides").textContent = totalSlides;
+
+      function showSlide(n) {
+        slides.forEach((slide) => slide.classList.remove("active"));
+        currentSlide = (n + totalSlides) % totalSlides;
+        slides[currentSlide].classList.add("active");
+        document.getElementById("current-slide").textContent = currentSlide + 1;
+      }
+
+      function nextSlide() {
+        showSlide(currentSlide + 1);
+      }
+
+      function previousSlide() {
+        showSlide(currentSlide - 1);
+      }
+
+      function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch((err) => {
+            alert(`Erro ao entrar em tela cheia: ${err.message}`);
+          });
+        } else {
+          document.exitFullscreen();
+        }
+      }
+
+      // Navegação com teclado
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "ArrowRight" || event.key === " ") {
+          nextSlide();
+        } else if (event.key === "ArrowLeft") {
+          previousSlide();
+        } else if (event.key === "f" || event.key === "F") {
+          toggleFullscreen();
+        }
+      });
+
+      // Inicializa
+      showSlide(0);
+    </script>
+  </body>
+</html>
