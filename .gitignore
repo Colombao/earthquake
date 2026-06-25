@@ -1,4 +1,6 @@
 
 outputs_n1_old/
 outputs_n1/
+outputs_n3/
+wandb/
 rodar_app.bat
