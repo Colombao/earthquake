@@ -1,19 +1,34 @@
 """Gera n3_modelagem_preditiva.ipynb — notebook de entrega N3."""
 import json
+import uuid
 from pathlib import Path
 
 cells = []
 
-def md(source: str):
-    cells.append({"cell_type": "markdown", "metadata": {}, "source": source.split("\n")})
 
-def code(source: str):
-    # Jupyter expects lines as list with \n at end except last sometimes
-    lines = source.split("\n")
+def _lines_to_source(text: str) -> list[str]:
+    """Formata source no padrão Jupyter: cada linha termina com \\n."""
+    lines = text.strip().split("\n")
+    if not lines:
+        return []
+    return [line + "\n" for line in lines]
+
+
+def md(source: str) -> None:
+    cells.append({
+        "cell_type": "markdown",
+        "id": uuid.uuid4().hex[:8],
+        "metadata": {},
+        "source": _lines_to_source(source),
+    })
+
+
+def code(source: str) -> None:
     cells.append({
         "cell_type": "code",
+        "id": uuid.uuid4().hex[:8],
         "metadata": {},
-        "source": [l + "\n" for l in lines[:-1]] + ([lines[-1]] if lines[-1] else []),
+        "source": _lines_to_source(source),
         "outputs": [],
         "execution_count": None,
     })
@@ -22,7 +37,8 @@ def code(source: str):
 
 md("""# N3 — Modelagem Preditiva de Atividade Sísmica Global
 
-**Disciplina:** Modelagem Preditiva, Avaliação e Rastreio de Experimentos  
+**Disciplina:** Modelagem Preditiva, Avaliação e Rastreio de Experimentos
+
 **Case:** Previsão da quantidade diária de terremotos (magnitude ≥ 2.5) com dados da [USGS Earthquake Hazards API](https://earthquake.usgs.gov/fdsnws/event/1/).
 
 ---
@@ -35,11 +51,14 @@ A atividade sísmica global é registrada continuamente por redes de monitoramen
 - Revisar planos de contingência
 - Comunicar riscos ao público
 
-**Variável-alvo:** `quake_count` — número de terremotos por dia (agregação diária).  
-**Horizonte de previsão:** 14 dias (configurável).  
-**Fonte:** Mesmo repositório das avaliações N1/N2 (dashboard Streamlit + API USGS).
+| Item | Valor |
+|------|-------|
+| **Variável-alvo** | `quake_count` (eventos/dia) |
+| **Horizonte** | 14 dias |
+| **Fonte** | Repositório N1/N2 + API USGS |
 
-> Execute todas as células em ordem. Requisitos: `pip install -r requirements.txt`""")
+> **Como usar:** execute todas as células em ordem (`Cell → Run All`).  
+> Requisitos: `pip install -r requirements.txt`""")
 
 code("""# Configuração inicial
 %matplotlib inline
@@ -77,7 +96,11 @@ md("""---
 
 ## 1. Auditoria e EDA
 
-Conferência estrutural da série temporal: dimensão, período, frequência, nulos, gaps, outliers (IQR) e imputação documentada.""")
+Conferência estrutural da série temporal:
+
+- Dimensão, período e frequência
+- Nulos, gaps e outliers (IQR)
+- Imputação documentada""")
 
 code("""df_eventos = carregar_eventos_usgs()
 daily = construir_serie_diaria(df_eventos)
