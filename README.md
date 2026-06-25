@@ -466,10 +466,37 @@ Atividade N3 implementada em `n3_modelagem_preditiva.py`, usando o mesmo case de
 
 ### Executar
 
+**Opção A — Notebook (recomendado para entrega)**
+
+```bash
+pip install -r requirements.txt
+jupyter notebook n3_modelagem_preditiva.ipynb
+# ou: code n3_modelagem_preditiva.ipynb
+```
+
+**Opção B — Script**
+
 ```bash
 pip install -r requirements.txt
 python n3_modelagem_preditiva.py
 ```
+
+### Conteúdo do notebook
+
+O arquivo `n3_modelagem_preditiva.ipynb` contém todas as seções exigidas:
+
+- Descrição do case
+- Auditoria e EDA (tabelas + gráficos inline)
+- Engenharia de atributos e hipóteses
+- Baselines e régua de desempenho
+- Modelos SARIMA, Holt-Winters e Random Forest
+- Diagnóstico de resíduos e Ljung-Box
+- Previsão final com IC 95%
+- Integração wandb + leaderboard
+- Tabela consolidada de métricas
+- Conclusões e recomendações
+
+> Regenerar notebook vazio: `python _gerar_notebook_n3.py`
 
 ### Etapas cobertas
 

@@ -3,4 +3,5 @@ outputs_n1_old/
 outputs_n1/
 outputs_n3/
 wandb/
+__pycache__/
 rodar_app.bat
