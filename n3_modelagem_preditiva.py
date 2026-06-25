@@ -33,6 +33,15 @@ from statsmodels.tsa.statespace.sarimax import SARIMAX
 
 warnings.filterwarnings("ignore")
 
+# Modo notebook: mantém figuras abertas para exibição inline (%matplotlib inline)
+NOTEBOOK_MODE = False
+
+
+def set_notebook_mode(enabled: bool = True) -> None:
+    global NOTEBOOK_MODE
+    NOTEBOOK_MODE = enabled
+
+
 # =============================================================================
 # CONFIGURAÇÃO
 # =============================================================================
@@ -71,10 +80,15 @@ def imprimir_titulo(texto: str) -> None:
     print("=" * 90)
 
 
-def salvar_figura(nome: str) -> None:
+def salvar_figura(nome: str, close: bool | None = None) -> None:
+    TABELAS_DIR.mkdir(parents=True, exist_ok=True)
+    GRAFICOS_DIR.mkdir(parents=True, exist_ok=True)
     plt.tight_layout()
     plt.savefig(GRAFICOS_DIR / nome, dpi=200, bbox_inches="tight")
-    plt.close()
+    if close is None:
+        close = not NOTEBOOK_MODE
+    if close:
+        plt.close()
 
 
 def mape(y_true: np.ndarray, y_pred: np.ndarray) -> float:
