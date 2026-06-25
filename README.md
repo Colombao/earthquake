@@ -460,12 +460,55 @@ Para contribuições, sugestões ou reportar bugs:
 
 ---
 
+## N3 — Modelagem Preditiva (Novo)
+
+Atividade N3 implementada em `n3_modelagem_preditiva.py`, usando o mesmo case de **atividade sísmica global** (série diária de `quake_count`).
+
+### Executar
+
+```bash
+pip install -r requirements.txt
+python n3_modelagem_preditiva.py
+```
+
+### Etapas cobertas
+
+| Etapa | Conteúdo |
+| ----- | -------- |
+| 1 | Auditoria: dimensão, gaps, outliers IQR, imputação |
+| 2 | Features: lags, médias móveis, encoding cíclico |
+| 3 | Baselines: persistência e média móvel |
+| 4 | ADF/KPSS, ACF/PACF, decomposição |
+| 5 | SARIMA, Holt-Winters, Random Forest |
+| 6 | Tabela AIC + demo de overfitting |
+| 7 | Métricas MAE/RMSE/MAPE, resíduos, Ljung-Box |
+| 8 | Validação walk-forward |
+| 9 | Previsão 14 dias com IC 95% + storytelling |
+| 10 | Rastreio com Weights & Biases |
+
+### Saídas (`outputs_n3/`)
+
+- `tabelas/` — diagnóstico, métricas, AIC, walk-forward, previsão futura
+- `graficos/` — série, decomposição, ACF/PACF, resíduos, previsão final
+- `relatorio_n3.md` — relatório consolidado para entrega
+
+### Weights & Biases
+
+```bash
+export WANDB_API_KEY=sua_chave   # opcional — sem chave roda em modo offline
+python n3_modelagem_preditiva.py
+```
+
+Projeto wandb: `earthquake-n3-predictive`
+
+---
+
 ##  Histórico de Atualizações
 
 | Data       | Versão | Alteração                                 |
 | ---------- | ------ | ----------------------------------------- |
+| 25/06/2026 | 1.1    | N3: modelagem preditiva + wandb           |
 | 16/04/2026 | 1.0    | Versão inicial com sincronização de dados |
-| -          | -      | -                                         |
 
 ---
 
